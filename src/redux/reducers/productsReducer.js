@@ -5,8 +5,14 @@ const initialState = {
 };
 
 const productsReducer = (state = initialState, action) => {
+  const selectedProduct = state.cart.find(
+    (product) => product._id === action.payload._id
+  );
   switch (action.type) {
     case ADD_TO_CART:
+      if (selectedProduct) {
+        return state;
+      }
       return {
         ...state,
         cart: [...state.cart, action.payload],
